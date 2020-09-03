@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
+
 //  判断当前环境是否是开发环境
 const isDev = process.env.NODE_ENV === 'development'
 //  为不同的环境配置不同的前缀地址
@@ -41,4 +42,17 @@ export const getCategory = () => {
 //  获取商品列表
 export const getProductList = () => {
   return service.post('/admin/product')
+}
+//  获取商品分类
+export const getProductCategory = () => {
+  const CancelToken = axios.CancelToken
+  return service.post(
+    '/admin/product/category',
+    {},
+    {
+      cancelToken: new CancelToken(function executor(c) {
+        window.p.push(c)
+      }),
+    }
+  )
 }

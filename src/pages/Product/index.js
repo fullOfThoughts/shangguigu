@@ -2,6 +2,9 @@ import React from 'react'
 import { getProductList } from '../../ajax'
 import Highlighter from 'react-highlight-words'
 import { SearchOutlined } from '@ant-design/icons'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getDetail } from '../../actions'
 import './index.less'
 import {
   message,
@@ -18,7 +21,9 @@ import { PlusCircleOutlined } from '@ant-design/icons'
 
 const { Option } = Select
 
-export default class Product extends React.Component {
+@withRouter
+@connect(null, { getDetail })
+class Product extends React.Component {
   formRef = React.createRef()
   state = {
     productList: [],
@@ -114,6 +119,13 @@ export default class Product extends React.Component {
     this.setState({ searchText: '' })
   }
 
+  modify = (record) => {
+    this.props.history.push({
+      pathname: '/admin/product/add',
+      state: record,
+    })
+  }
+
   componentDidMount() {
     getProductList().then(
       (value) => {
@@ -159,7 +171,7 @@ export default class Product extends React.Component {
         title: '商品描述',
         dataIndex: 'title',
         key: 'title',
-        width: '70%',
+        width: '62%',
         ...this.getColumnSearchProps('title'),
       },
       {
@@ -184,19 +196,41 @@ export default class Product extends React.Component {
       {
         title: '操作',
         key: 'action',
-        render: () => {
+        render: (text, record, index) => {
           return (
-            <>
-              <Button style={{ color: '#1DA57A' }} type="link">
+            <div style={{ display: 'flex' }}>
+              <Button
+                onClick={() => this.modify(record)}
+                style={{ color: '#1DA57A' }}
+                type="link"
+              >
                 修改
+              </Button>{' '}
+              <Button
+                onClick={() => this.detail(record)}
+                style={{ color: '#1DA57A' }}
+                type="link"
+              >
+                详情
               </Button>
-            </>
+            </div>
           )
         },
-        width: '10%',
+        width: '18%',
       },
     ]
     this.setState({ columns })
+  }
+
+  detail = (record) => {
+    this.props.history.push('/admin/product/detail')
+    this.props.getDetail(record)
+  }
+
+  addCategory = () => {
+    this.props.history.push({
+      pathname: '/admin/product/add',
+    })
   }
 
   componentWillMount() {
@@ -219,7 +253,7 @@ export default class Product extends React.Component {
               style={{ height: 60 }}
               onFinish={this.onFinish}
               layout="inline"
-              initialValues={{ name: 'title' }}
+              initialValues={{ name: 'name' }}
             >
               <Form.Item
                 style={{ width: 130 }}
@@ -268,7 +302,7 @@ export default class Product extends React.Component {
             size: 'small',
             showQuickJumper: true,
             pageSize: 5,
-
+            hideOnSinglePage: true,
             onChange: this.onChange,
           }}
         />
@@ -276,3 +310,4 @@ export default class Product extends React.Component {
     )
   }
 }
+export default Product
