@@ -95,6 +95,7 @@ export default class Users extends React.PureComponent {
   }
 
   handleOk = () => {
+    console.log(1)
     this.subRef.current.click()
   }
 
@@ -185,19 +186,20 @@ export default class Users extends React.PureComponent {
                   >
                     <Input placeholder="请输入用户名" />
                   </Form.Item>
-                  <Form.Item
-                    hidden={this.state.initialValues ? true : false}
-                    label="密码"
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: '请输入密码!',
-                      },
-                    ]}
-                  >
-                    <Input.Password placeholder="请输入密码" />
-                  </Form.Item>
+                  {this.state.initialValues ? null : (
+                    <Form.Item
+                      label="密码"
+                      name="password"
+                      rules={[
+                        {
+                          required: true,
+                          message: '请输入密码!',
+                        },
+                      ]}
+                    >
+                      <Input.Password placeholder="请输入密码" />
+                    </Form.Item>
+                  )}
                   <Form.Item
                     label="手机号"
                     name="phoneNumber"

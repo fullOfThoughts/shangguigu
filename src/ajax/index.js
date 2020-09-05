@@ -2,10 +2,10 @@ import axios from 'axios'
 import { message } from 'antd'
 const CancelToken = axios.CancelToken
 //  判断当前环境是否是开发环境
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV === 'development'
 //  为不同的环境配置不同的前缀地址
 const service = axios.create({
-  baseURL: isDev ? 'http://rap2.taobao.org:38080/app/mock/264254' : '',
+  baseURL: 'http://rap2.taobao.org:38080/app/mock/264254',
   timeout: 3000, //  表示请求超时的时间
 })
 // 为每个请求设置一个拦截,这里先设置一下请求体

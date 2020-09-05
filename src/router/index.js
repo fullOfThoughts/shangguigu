@@ -10,6 +10,7 @@ import {
   Bar,
   Line,
   Pie,
+  No,
 } from '../pages'
 import { ProductAdd, ProductDetail } from '../pages/Product/router'
 
@@ -83,5 +84,10 @@ export const adminRouter = [
     pathname: '/admin/pie',
     component: Pie,
     exact: true,
+  },
+  {
+    pathname: '/admin/404',
+    component: No,
+    exact: false,
   },
 ]

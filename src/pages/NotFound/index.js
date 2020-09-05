@@ -1,7 +1,8 @@
 import React from 'react'
+import './index.less'
 export default class NotFound extends React.Component {
   state = {}
   render() {
-    return <div>404 页面不存在</div>
+    return <div className="lostlost"></div>
   }
 }

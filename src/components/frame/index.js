@@ -19,7 +19,7 @@ import { connect } from 'react-redux'
 import './index.less'
 import './header.less'
 import { withRouter } from 'react-router-dom'
-import { firstLogin } from '../../actions'
+import { firstLogin, getLost } from '../../actions'
 import SiderLeft from './sider'
 
 const { confirm } = Modal
@@ -27,7 +27,7 @@ const moment = require('moment')
 const { Header, Footer, Content } = Layout
 
 @withRouter
-@connect((state) => ({ user: state.user }), { firstLogin })
+@connect((state) => ({ user: state.user }), { firstLogin, getLost })
 class Frame extends React.Component {
   state = {
     time: Date.now(),
@@ -38,6 +38,7 @@ class Frame extends React.Component {
     this.timer = setInterval(() => {
       this.setState({ time: Date.now() })
     }, 1000)
+    this.props.getLost(this.getTitle)
   }
 
   getTitle = (data, key) => {
@@ -47,6 +48,8 @@ class Frame extends React.Component {
       } else {
         if (item.key === key) {
           this.setState({ title: item.title })
+        } else if (key === '/admin/404') {
+          this.setState({ title: 404 })
         }
       }
     })
