@@ -30,6 +30,7 @@ class ProductAdd extends React.Component {
     previewTitle: '',
     fileList: [],
     oneCategory: [],
+    editor: null,
   }
 
   getOptions = () => {
@@ -89,10 +90,8 @@ class ProductAdd extends React.Component {
   }
 
   onFinish = (values) => {
-    values.productPicture = values.productPicture.fileList.map(
-      (item) => item.name
-    )
-    console.log(values)
+    values.productDetail = this.state.editor.txt.html()
+    values.productPicture = this.state.fileList.map((item) => item.name)
   }
 
   category = () => {
@@ -155,11 +154,8 @@ class ProductAdd extends React.Component {
   componentDidMount() {
     //  创建富文本编辑器
     const editor = new E('#editor')
-    editor.customConfig.onchange = (html) => {
-      this.formRef.current.setFieldsValue({
-        productDetail: html,
-      })
-    }
+    editor.customConfig.uploadImgServer = '/upload'
+    this.setState({ editor })
     editor.create()
     editor.txt.html(
       this.props.location.state ? this.props.location.state.detail : null
@@ -302,9 +298,8 @@ class ProductAdd extends React.Component {
             <div
               style={{
                 width: '222%',
-                height: 350,
+                minHeight: 350,
               }}
-              ref={this.editorRef}
               id="editor"
             ></div>
           </Form.Item>

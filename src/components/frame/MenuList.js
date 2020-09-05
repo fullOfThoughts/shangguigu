@@ -37,6 +37,7 @@ export default [
     title: '用户管理',
     key: '/admin/user',
     icon: AndroidOutlined,
+    isPlubic: true,
   },
   {
     title: '角色管理',

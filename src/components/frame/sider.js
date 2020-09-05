@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import MenuList from './MenuList'
 import SiderLogo from './sider.png'
 
+// const _ = require('lodash')
 const { Sider } = Layout
 const { SubMenu } = Menu
 
@@ -11,6 +12,7 @@ const { SubMenu } = Menu
 class SiderLeft extends React.Component {
   state = {
     subMenu: null,
+    newData: MenuList,
   }
 
   goHome = () => {
@@ -44,6 +46,31 @@ class SiderLeft extends React.Component {
     pathArr.length = 3
     this.props.getTitle(MenuList, pathArr.join('/'))
   }
+  //  权限设置
+  // setRole = (data) => {
+  //   const test = ['/admin/product', '/admin/bar', '/admin/home', '/admin/user']
+  //   const newData = data.reduce((prev, cur) => {
+  //     if (cur.children) {
+  //       const son = this.setRole(cur.children)
+  //       if (son.length > 0) {
+  //         cur.children = son
+  //         return prev.concat(cur)
+  //       }
+  //     }
+  //     if (test.some((item) => item === cur.key || cur.isPlubic === true)) {
+  //       return prev.concat(cur)
+  //     }
+  //     return prev
+  //   }, [])
+
+  //   return newData
+  // }
+  // componentDidMount() {
+  //   const newList = _.cloneDeep(MenuList)
+
+  //   const newData = this.setRole(newList)
+  //   this.setState({ newData })
+  // }
 
   createMenuList = (data) => {
     return data.map((item) => {
@@ -78,7 +105,8 @@ class SiderLeft extends React.Component {
           mode="inline"
           onClick={this.Switch}
         >
-          {this.createMenuList(MenuList)}
+          {this.createMenuList(this.state.newData)}
+          {/* {this.createMenuList(MenuList)} */}
         </Menu>
       </Sider>
     )
