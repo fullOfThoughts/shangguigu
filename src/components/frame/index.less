@@ -1,0 +1,30 @@
+.sider-left {
+  min-width: 270px !important;
+  img {
+    height: 88px;
+  }
+}
+.content-body {
+  .ant-card-body {
+    padding: 0;
+    height: 100%;
+    border-top: 15px solid #f1f3f4;
+    border-left: 15px solid #f1f3f4;
+  }
+  .ant-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .ant-card-head-title {
+    padding-left: 16px;
+  }
+  .ant-card-head-title::before {
+    content: '';
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid white;
+    top: 46px;
+  }
+}
