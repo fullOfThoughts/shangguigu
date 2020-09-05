@@ -48,3 +48,7 @@ export const NotFound = Loadable({
   loader: () => import('./NotFound'),
   loading: Loading,
 })
+export const No = Loadable({
+  loader: () => import('./No'),
+  loading: Loading,
+})

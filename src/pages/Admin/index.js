@@ -35,7 +35,7 @@ class Admin extends React.Component {
             )
           })}
 
-          <Redirect to="/404" />
+          <Redirect to="/admin/404" />
         </Switch>
       </Frame>
     )
